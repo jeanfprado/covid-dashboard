@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImportFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/import', [ImportFileController::class, 'create'])->name('import.create');
+Route::post('/import', [ImportFileController::class, 'store'])->name('import.store');
 

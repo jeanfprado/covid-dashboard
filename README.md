@@ -18,7 +18,7 @@ php artisan migrate
 ```
 
 Já com as tabelas criadas agora vamos carregar os dados com base em um arquivo.
-o mesmo se encontra no caminho: `storage/app/caso.csv` : Data da última atualização 16/10/2020
+O mesmo se encontra no caminho: `storage/app/caso.csv` : Data da última atualização 16/10/2020
 
 ```
 php artisan covid:seed-cases --source=file
@@ -26,19 +26,27 @@ php artisan covid:seed-cases --source=file
 
 ## Integrantes
 
-Dierli Matos
-Mateus dos Reis
-Joel Ernandes
-Diego Ponath
-Gustavo Antonio
-Clóvis Pinaffo
-Milena Haidiman
-Adailton Lucas
-Douglas dos Reis
+Dierli Matos.
+
+Mateus dos Reis.
+
+Joel Ernandes.
+
+Diego Ponath.
+
+Gustavo Antonio.
+
+Clóvis Pinaffo.
+
+Milena Haidiman.
+
+Adailton Lucas.
+
+Douglas dos Reis.
 
 ## Professor Orientador
 
-Prof. Jean de Freitas Prado
+Prof. Jean de Freitas Prado.
 
 ## License
 

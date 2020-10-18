@@ -18,8 +18,9 @@ class CovidImport implements ToModel, WithProgressBar
     */
     public function model(array $row)
     {
-        return CovidCase::create([
-            'date' => $row[0],
+        return CovidCase::updateOrCreate([
+            'date' => $row[0],'city_ibge_code' => $row[10]
+            ],[
             'state' => $row[1],
             'city' => $row[2],
             'place_type' => $row[3],
@@ -29,7 +30,6 @@ class CovidImport implements ToModel, WithProgressBar
             'is_last' => $row[7],
             'estimated_population_2019' => $row[8],
             'estimated_population' => $row[9],
-            'city_ibge_code' => $row[10],
             'confirmed_per_100k_inhabitants' => $row[11],
             'death_rate' => $row[12],
         ]);

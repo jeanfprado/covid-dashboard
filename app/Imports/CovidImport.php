@@ -5,9 +5,10 @@ namespace App\Imports;
 use App\Models\CovidCase;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithProgressBar;
 
-class CovidImport implements ToModel, WithProgressBar
+class CovidImport implements ToModel, WithProgressBar, WithHeadingRow
 {
     use Importable;
 
@@ -19,24 +20,24 @@ class CovidImport implements ToModel, WithProgressBar
     public function model(array $row)
     {
         return CovidCase::create([
-            'date' => $row[0],
-            'state' => $row[1],
-            'city' => $row[2],
-            'place_type' => $row[3],
-            'confirmed' => $row[4],
-            'deaths' => $row[5],
-            'order_for_place' => $row[6],
-            'is_last' => $row[7],
-            'estimated_population_2019' => $row[8],
-            'estimated_population' => $row[9],
-            'city_ibge_code' => $row[10],
-            'confirmed_per_100k_inhabitants' => $row[11],
-            'death_rate' => $row[12],
+            'date' => $row['date'],
+            'state' => $row['state'],
+            'city' => $row['city'],
+            'place_type' => $row['place_type'],
+            'confirmed' => $row['confirmed'],
+            'deaths' => $row['deaths'],
+            'order_for_place' => $row['order_for_place'],
+            'is_last' => $row['is_last'],
+            'estimated_population_2019' => $row['estimated_population_2019'],
+            'estimated_population' => $row['estimated_population'],
+            'city_ibge_code' => $row['city_ibge_code'],
+            'confirmed_per_100k_inhabitants' => $row['confirmed_per_100k_inhabitants'],
+            'death_rate' => $row['death_rate'],
         ]);
     }
 
     public function chunkSize(): int
     {
-        return 5000;
+        return 1000;
     }
 }

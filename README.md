@@ -9,36 +9,30 @@ Sistema desenvolvimento pela turma do 6º Periodo de Analise e Desenvolvimento d
 
 [https://covid19-brazil-api-docs.now.sh/]
 
-## Instalação
-
-Primeiro você vai precisar criar as tabelas no banco de dados:
-
-```
-php artisan migrate
-```
-
-Já com as tabelas criadas agora vamos carregar os dados com base em um arquivo.
-o mesmo se encontra no caminho: `storage/app/caso.csv` : Data da última atualização 16/10/2020
-
-```
-php artisan covid:seed-cases --source=file
-```
 
 ## Integrantes
 
-Dierli Matos
-Mateus dos Reis
-Joel Ernandes
-Diego Ponath
-Gustavo Antonio
-Clóvis Pinaffo
-Milena Haidiman
-Adailton Lucas
-Douglas dos Reis
+Dierli Matos.
+
+Mateus dos Reis.
+
+Joel Ernandes.
+
+Diego Ponath.
+
+Gustavo Antonio.
+
+Clóvis Pinaffo.
+
+Milena Haidiman.
+
+Adailton Lucas.
+
+Douglas dos Reis.
 
 ## Professor Orientador
 
-Prof. Jean de Freitas Prado
+Prof. Jean de Freitas Prado.
 
 ## License
 

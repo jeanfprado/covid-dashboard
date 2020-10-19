@@ -18,6 +18,6 @@ use App\Http\Controllers\ImportFileController;
 Route::get('/', [HomeController::class, 'index']);
 
 //temp
-/* Route::get('/import', [ImportFileController::class, 'create'])->name('import.create');
-Route::post('/import', [ImportFileController::class, 'store'])->name('import.store'); */
+Route::get('/import', [ImportFileController::class, 'create'])->name('import.create');
+Route::post('/import', [ImportFileController::class, 'store'])->name('import.store');
 

@@ -11,7 +11,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Estado</th>
-                            <th scope="col">Nº Obtos</th>
+                            <th scope="col">Nº Óbitos</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,8 +69,8 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" class="col-xs-7">Cidade</th>
-                            <th scope="col" class="col-xs-5">Nº Obtos</th>
+                            <th scope="col">Cidade</th>
+                            <th scope="col">Nº Óbitos</th>
                         </tr>
                     </thead>
                     <tbody>

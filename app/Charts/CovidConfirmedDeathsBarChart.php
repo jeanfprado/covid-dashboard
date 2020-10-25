@@ -18,15 +18,17 @@ class CovidConfirmedDeathsBarChart extends BaseChart
      */
     public function handler(Request $request): Chartisan
     {
-        $modal = (new CovidCase)->newQuery();
+        $cases = cache()->remember('covid-confirmed-deaths-bar-chart-' . $request->get('state'), now()->addMinutes(60), function () use ($request) {
+            $modal = (new CovidCase)->newQuery();
 
-        $modal->where('place_type', 'state');
+            $modal->where('place_type', 'state');
 
-        if ($request->has('state')) {
-            $modal->where('state', $request->get('state'));
-        }
+            if ($request->has('state')) {
+                $modal->where('state', $request->get('state'));
+            }
 
-        $cases = $modal->orderBy('date')->get();
+            return $modal->orderBy('date')->get();
+        });
 
         return Chartisan::build()
             ->labels(array_keys($cases->groupBy('date')->map->keys()->toArray()))

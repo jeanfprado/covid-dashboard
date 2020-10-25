@@ -2,28 +2,43 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Covid\CovidApi;
+use App\Models\CovidCase;
 use Illuminate\Http\Request;
 use App\Models\CovidCaseState;
-use App\Models\CovidCase;
+
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
+        $totalWorld = null;
+
         $casePerStates = CovidCaseState::all();
 
-        $modal = (new CovidCase)->newQuery();
+        $casesDeathsForCities = $this->getCasesDeathsForCities($request);
 
-        $modal->where('place_type', 'city');
-
-        if ($request->has('state')) {
-            $modal->where('state', $request->get('state'));
-            $cases = $modal->select('city', 'deaths')->orderBy('city')->get();
-            $listCity = $cases->groupBy('city')->map->max('deaths');
-        } else{
-            $listCity = [];
+        if (empty($casesDeathsForCities)) {
+            $api = new CovidApi;
+            $totalWorld = $api->getTotalCaseContirmedAndDeathWorld();
         }
 
-        return view('dashboard', compact('casePerStates', 'listCity'));
+        return view('dashboard', compact('casePerStates', 'casesDeathsForCities', 'totalWorld'));
+    }
+
+    public function getCasesDeathsForCities(Request $request)
+    {
+        if ($request->has('state')) {
+            return cache()->remember('covid-deaths-for-city-' . $request->get('state'), now()->addMinutes(60), function () use ($request) {
+                $modal = (new CovidCase)->newQuery();
+
+                $modal->where('place_type', 'city');
+
+                $modal->where('state', $request->get('state'));
+                $cases = $modal->select('city', 'deaths')->orderBy('city')->get();
+                return $cases->groupBy('city')->map->max('deaths');
+            });
+        }
+
+        return [];
     }
 }

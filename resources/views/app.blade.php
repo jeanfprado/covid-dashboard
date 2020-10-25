@@ -7,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .fakeimg {
-            height: 200px;
-            background: #aaa;
-        }
+    .table-wrapper {
+        width: 100%;
+        max-height: 1380px;
+        overflow: auto;
+        display:inline-block;
+      }
     </style>
 </head>
 

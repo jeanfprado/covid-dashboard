@@ -6,6 +6,7 @@
     <div class="col-3">
         <div class="card">
             <div class="card-body">
+                <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
@@ -26,6 +27,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>
@@ -37,28 +39,47 @@
         <div class="col-sm-6">
             <!-- Chart's container -->
             <div id="chart2" style="height: 300px;"></div>
-        </div>    
+        </div>
     </div>
     <div class="col-3">
         <div class="card">
+            @if(empty($casesDeathsForCities))
+            <div class="card-header">
+                Dados Global
+            </div>
             <div class="card-body">
+                <h5 class="card-title">Total de Obtos</h5>
+                <p class="card-text">{{ $totalWorld['TotalDeaths'] }}</p>
+                <h5 class="card-title">Total de Casos Confirmados</h5>
+                <p class="card-text">{{ $totalWorld['TotalConfirmed'] }}</p>
+                <h5 class="card-title">Total de Casos Recuperados</h5>
+                <p class="card-text">{{ $totalWorld['TotalRecovered'] }}</p>
+            </div>
+            @else
+            <div class="card-header">
+                Nº Obtos Por Cidade
+            </div>
+            <div class="card-body">
+                <div  class="table-responsible table-wrapper">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Cidade</th>
-                            <th scope="col">Nº Obtos</th>
+                            <th scope="col" class="col-xs-7">Cidade</th>
+                            <th scope="col" class="col-xs-5">Nº Obtos</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($listCity as $key => $value)
+                        @foreach($casesDeathsForCities as $city => $deaths)
                         <tr>
-                        <th scope="row">{{$key}}</th>
-                            <td>{{$value}}</td>
+                            <th scope="row" class="col-xs-7">{{$city}}</th>
+                            <td class="col-xs-5">{{$deaths}}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
+            @endif
         </div>
     </div>
 </div>
@@ -81,7 +102,7 @@
           .colors()
           .tooltip()
           .datasets(['bar'])
-          
+
         });
         const chart2 = new Chartisan({
           el: '#chart2',
@@ -91,7 +112,7 @@
           .colors()
           .tooltip()
           .datasets(['pie'])
-          
+
         });
 </script>
 

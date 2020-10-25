@@ -10,6 +10,8 @@ class CovidApi
 
     const URL_BRAZIL_COVID19 = 'https://covid19-brazil-api.now.sh/api/report/v1';
 
+    const URL_COVID19_API = 'https://api.covid19api.com/summary';
+
     public function __construct()
     {
         $this->client = new Client;
@@ -27,6 +29,13 @@ class CovidApi
         $response = $this->client->get(static::URL_BRASIL_IO);
 
         return json_decode($response->getBody()->getContents(), true)['results'];
+    }
+
+    public function getTotalCaseContirmedAndDeathWorld()
+    {
+        $response = $this->client->get(static::URL_COVID19_API);
+
+        return json_decode($response->getBody()->getContents(), true)['Global'];
     }
 
 }

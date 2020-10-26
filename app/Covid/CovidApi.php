@@ -76,4 +76,16 @@ class CovidApi
 
         return json_decode($response->getBody()->getContents(), true)['Global'];
     }
+
+    /**
+     * Get total case covid 19 in world
+     *
+     * @return array
+     */
+    public function getTotalCaseContirmedAndRecovered()
+    {
+        $response = $this->client->get(static::URL_BRAZIL_COVID19.'/brazil');
+
+        return json_decode($response->getBody()->getContents(), true)['data'];
+    }
 }

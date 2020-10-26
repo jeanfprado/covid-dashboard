@@ -36,9 +36,12 @@
             <!-- Chart's container -->
             <div id="chart" style="height: 300px;"></div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <!-- Chart's container -->
             <div id="chart2" style="height: 300px;"></div>
+
+            <!-- Chart's container -->
+            <div id="chart3" style="height: 300px;"></div>
         </div>
     </div>
     <div class="col-3">
@@ -54,6 +57,8 @@
                 <p class="card-text">{{ $totalWorld['TotalConfirmed'] }}</p>
                 <h5 class="card-title">Total de Casos Recuperados</h5>
                 <p class="card-text">{{ $totalWorld['TotalRecovered'] }}</p>
+                <h5 class="card-title">Total de Casos Ativos</h5>
+                <p class="card-text">{{$totalWorld['TotalConfirmed'] - $totalWorld['TotalRecovered'] }}</p>
             </div>
             @else
             <div class="card-header">
@@ -101,9 +106,11 @@
           .legend()
           .colors()
           .tooltip()
+          .title("Resultados do @if(Request::has('state')){{Request::query('state')}} @else Brasil @endif")
           .datasets(['bar'])
 
         });
+
         const chart2 = new Chartisan({
           el: '#chart2',
           url: "@chart('covid_confirmed_deaths_pie_chart')@if(Request::has('state'))?state={{Request::query('state')}}@endif",
@@ -111,6 +118,19 @@
           .legend()
           .colors()
           .tooltip()
+          .title('Resultados do @if(Request::has('state')){{Request::query('state')}} @else Brasil @endif')
+          .datasets(['pie'])
+
+        });
+
+        const chart3 = new Chartisan({
+          el: '#chart3',
+          url: "@chart('covid_confirmed_recovered_pie_chart')@if(Request::has('state'))?state={{Request::query('state')}}@endif",
+          hooks: new ChartisanHooks()
+          .legend()
+          .colors()
+          .tooltip()
+          .title('Resultados do Brasil')
           .datasets(['pie'])
 
         });

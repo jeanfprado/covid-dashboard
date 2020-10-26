@@ -9,6 +9,8 @@ Sistema desenvolvimento pela turma do 6º Periodo de Analise e Desenvolvimento d
 
 [https://covid19-brazil-api-docs.now.sh/]
 
+[https://api.covid19api.com/]
+
 
 ## Integrantes
 

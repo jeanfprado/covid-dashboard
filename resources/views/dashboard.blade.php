@@ -6,12 +6,15 @@
     <div class="col-3">
         <div class="card">
             <div class="card-body">
-                <div class="table-responsive">
-                <table class="table">
+                <div style="overflow: auto; height: 800px">
+                <table class="table table-fixed table-striped">
+                    <div class="card-header">
+                        <b>Número Óbitos Por Estado</b>
+                    </div>
                     <thead>
                         <tr>
                             <th scope="col">Estado</th>
-                            <th scope="col">Nº Óbitos</th>
+                            <th scope="col">Óbitos</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +54,7 @@
                 Dados Global
             </div>
             <div class="card-body">
-                <h5 class="card-title">Total de Obtos</h5>
+                <h5 class="card-title">Total de Óbitos</h5>
                 <p class="card-text">{{ $totalWorld['TotalDeaths'] }}</p>
                 <h5 class="card-title">Total de Casos Confirmados</h5>
                 <p class="card-text">{{ $totalWorld['TotalConfirmed'] }}</p>
@@ -62,15 +65,15 @@
             </div>
             @else
             <div class="card-header">
-                Nº Obtos Por Cidade
+                <b>Número Óbitos Por Cidade</b>
             </div>
             <div class="card-body">
-                <div  class="table-responsible table-wrapper">
-                <table class="table">
+                <div style="overflow: auto; height: 800px">
+                <table class="table table-fixed table-striped">
                     <thead>
                         <tr>
                             <th scope="col">Cidade</th>
-                            <th scope="col">Nº Óbitos</th>
+                            <th scope="col">Óbitos</th>
                         </tr>
                     </thead>
                     <tbody>

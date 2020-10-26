@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
     protected function scheduleSeedCases($schedule)
     {
         $schedule->command('covid:seed-cases --source=api')
-            ->everyTwoHours();
+            ->everyFourHours();
     }
 
     /**

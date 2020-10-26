@@ -17,7 +17,7 @@ class SeedCases extends Command
      *
      * @var string
      */
-    protected $signature = 'covid:seed-cases 
+    protected $signature = 'covid:seed-cases
                             {--source= : Where get dataset api or file}';
 
     /**
@@ -56,10 +56,14 @@ class SeedCases extends Command
         if ($source == 'api') {
             $cases = new CovidApi;
             $this->output->title('Iniciando Importação dos Dados');
-            $bar1 = $this->output->createProgressBar(count($cases->getCaseContirmedAndDeath()));
+
+            $dataApi1 = collect($cases->getCaseContirmedAndDeath())->flatten(1);
+            $bar1 = $this->output->createProgressBar(count($dataApi1));
+
+            logger($dataApi1);
 
             $this->line('Api brasil.io');
-            collect($cases->getCaseContirmedAndDeath())->each(function ($case) use ($bar1) {
+            collect($dataApi1)->each(function ($case) use ($bar1) {
                 CovidCase::updateOrCreate([
                     'date' => $case['date'],
                     'city_ibge_code' => $case['city_ibge_code'],
@@ -82,8 +86,9 @@ class SeedCases extends Command
 
             $bar1->finish();
             $this->line('Api brazil covid19');
-            $bar2 = $this->output->createProgressBar(count($cases->getCaseForStates()));
-            collect($cases->getCaseForStates())->each(function ($case) use ($bar2) {
+            $dataApi2 = $cases->getCaseForStates();
+            $bar2 = $this->output->createProgressBar(count($dataApi2));
+            collect($dataApi2)->each(function ($case) use ($bar2) {
                 CovidCaseState::updateOrCreate(['uid' => $case['uid']], [
                     'uf' => $case['uf'],
                     'state' => $case['state'],

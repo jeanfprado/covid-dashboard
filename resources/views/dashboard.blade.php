@@ -33,15 +33,23 @@
     </div>
     <div class="col-6">
         <div class="col-sm-12">
+            <h4 style="text-align: center" >Resultados @if(Request::has('state')){{Request::query('state')}} @else Brasil @endif</h4>
             <!-- Chart's container -->
             <div id="chart" style="height: 300px;"></div>
-        </div>
-        <div class="col-sm-12">
+            <hr/>
+            <h4 style="text-align: center" >Resultados @if(Request::has('state')){{Request::query('state')}} @else Brasil @endif</h4>
             <!-- Chart's container -->
             <div id="chart2" style="height: 300px;"></div>
+            <hr/>
 
+            <h4 style="text-align: center" >Resultados Óbitos Registrado em Cartório @if(Request::has('state')){{Request::query('state')}} @else Brasil @endif</h4>
+            <!-- Chart's container -->
+            <div id="chart4" style="height: 300px;"></div>
+
+            <h4 style="text-align: center" >Resultados Brasil </h4>
             <!-- Chart's container -->
             <div id="chart3" style="height: 300px;"></div>
+
         </div>
     </div>
     <div class="col-3">
@@ -106,7 +114,6 @@
           .legend()
           .colors()
           .tooltip()
-          .title("Resultados do @if(Request::has('state')){{Request::query('state')}} @else Brasil @endif")
           .datasets(['bar'])
 
         });
@@ -118,7 +125,6 @@
           .legend()
           .colors()
           .tooltip()
-          .title('Resultados do @if(Request::has('state')){{Request::query('state')}} @else Brasil @endif')
           .datasets(['pie'])
 
         });
@@ -130,8 +136,18 @@
           .legend()
           .colors()
           .tooltip()
-          .title('Resultados do Brasil')
           .datasets(['pie'])
+
+        });
+
+        const chart4 = new Chartisan({
+          el: '#chart4',
+          url: "@chart('registry_deaths_line_chart')@if(Request::has('state'))?state={{Request::query('state')}}@endif",
+          hooks: new ChartisanHooks()
+          .legend()
+          .colors()
+          .tooltip()
+          .datasets(['line'])
 
         });
 </script>

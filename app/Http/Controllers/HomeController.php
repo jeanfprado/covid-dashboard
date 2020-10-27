@@ -18,8 +18,7 @@ class HomeController extends Controller
         $casesDeathsForCities = $this->getCasesDeathsForCities($request);
 
         if (empty($casesDeathsForCities)) {
-            $api = new CovidApi;
-            $totalWorld = $api->getTotalCaseContirmedAndDeathWorld();
+            $totalWorld = $this->getStatisticWorld();
         }
 
         return view('dashboard', compact('casePerStates', 'casesDeathsForCities', 'totalWorld'));
@@ -40,5 +39,13 @@ class HomeController extends Controller
         }
 
         return [];
+    }
+
+    public function getStatisticWorld()
+    {
+        return cache()->remember('covid-world', now()->addMinutes(120), function () {
+            $api = new CovidApi;
+            return  $api->getTotalCaseContirmedAndDeathWorld();
+        });
     }
 }

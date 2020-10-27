@@ -6,26 +6,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-    .table-wrapper {
-        width: 100%;
-        max-height: 1380px;
-        overflow: auto;
-        display:inline-block;
-      }
-    </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand" href="/">Dashborad - Covid 19 - Brasil</a>
+        <a class="navbar-brand" href="{{ url('/') }}">Dashborad - Covid 19 - Brasil</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="/about">Sobre</a>
+                <a class="nav-link" href="{{ route('about') }}">Sobre o Projeto</a>
               </li>
             </ul>
           </div>

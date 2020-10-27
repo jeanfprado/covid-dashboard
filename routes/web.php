@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ImportFileController;
 
 /*
@@ -17,7 +16,9 @@ use App\Http\Controllers\ImportFileController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/about', [AboutController::class, 'index']);
+Route::get('/about', function(){
+    return view('about');
+})->name('about');
 
 //temp
 Route::get('/import', [ImportFileController::class, 'create'])->name('import.create');

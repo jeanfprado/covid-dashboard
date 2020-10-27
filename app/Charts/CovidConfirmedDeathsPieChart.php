@@ -31,7 +31,7 @@ class CovidConfirmedDeathsPieChart extends BaseChart
         });
 
         return Chartisan::build()
-        ->labels(['Obtos', 'Confirmados'])
+        ->labels(['Óbitos', 'Confirmados'])
         ->dataset('COVID-19', [array_sum(array_values($cases->groupBy('state')->map->max('deaths')->toArray())), array_sum(array_values($cases->groupBy('state')->map->max('confirmed')->toArray()))]);
     }
 }

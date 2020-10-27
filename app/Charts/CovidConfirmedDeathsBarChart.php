@@ -32,7 +32,7 @@ class CovidConfirmedDeathsBarChart extends BaseChart
 
         return Chartisan::build()
             ->labels(array_keys($cases->groupBy('date')->map->keys()->toArray()))
-            ->dataset('Obtos', array_values($cases->groupBy('date')->map->sum('deaths')->toArray()))
+            ->dataset('Óbitos', array_values($cases->groupBy('date')->map->sum('deaths')->toArray()))
             ->dataset('Confirmados', array_values($cases->groupBy('date')->map->sum('confirmed')->toArray()));
     }
 }

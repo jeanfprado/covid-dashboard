@@ -6,12 +6,15 @@
     <div class="col-3">
         <div class="card">
             <div class="card-body">
-                <div class="table-responsive">
-                <table class="table">
+                <div style="overflow: auto; height: 800px">
+                <table class="table table-fixed table-striped">
+                    <div class="card-header">
+                        <b>Número Óbitos Por Estado</b>
+                    </div>
                     <thead>
                         <tr>
                             <th scope="col">Estado</th>
-                            <th scope="col">Nº Obtos</th>
+                            <th scope="col">Óbitos</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,7 +62,7 @@
                <h5><b>Dados Globais</b></h5>
             </div>
             <div class="card-body">
-                <h5 class="card-title">Total de Obtos</h5>
+                <h5 class="card-title">Total de Óbitos</h5>
                 <p class="card-text">{{ $totalWorld['TotalDeaths'] }}</p>
                 <h5 class="card-title">Total de Casos Confirmados</h5>
                 <p class="card-text">{{ $totalWorld['TotalConfirmed'] }}</p>
@@ -69,29 +72,29 @@
                 <p class="card-text">{{$totalWorld['TotalConfirmed'] - $totalWorld['TotalRecovered'] }}</p>
             </div>
             @else
-            <div class="card">
-                <div class="card-header">
-                    Nº Obtos Por Cidade
-                </div>
-                <div class=" table-wrapper">
-                    <div  class="table-responsible">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="col-xs-7">Cidade</th>
-                                <th scope="col" class="col-xs-5">Nº Obtos</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($casesDeathsForCities as $city => $deaths)
-                            <tr>
-                                <th scope="row" class="col-xs-7">{{$city}}</th>
-                                <td class="col-xs-5">{{$deaths}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="card-header">
+                <b>Número Óbitos Por Cidade</b>
+            </div>
+            <div class="card-body">
+                <div style="overflow: auto; height: 800px">
+                <table class="table table-fixed table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cidade</th>
+                            <th scope="col">Óbitos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($casesDeathsForCities as $city => $deaths)
+                        <tr>
+                            <th scope="row" class="col-xs-7">{{$city}}</th>
+                            <td class="col-xs-5">{{$deaths}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                     </div>
+
                 </div>
             </div>
             @endif

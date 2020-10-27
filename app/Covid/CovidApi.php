@@ -11,6 +11,8 @@ class CovidApi
      */
     const URL_BRASIL_IO = 'https://brasil.io/api/v1/dataset/covid19/caso/data/';
 
+    const URL_BRASIL_IO_REGISTRY = 'https://brasil.io/api/v1/dataset/covid19/obito_cartorio/data/';
+
     const URL_BRAZIL_COVID19 = 'https://covid19-brazil-api.now.sh/api/report/v1';
 
     const URL_COVID19_API = 'https://api.covid19api.com/summary';
@@ -78,7 +80,7 @@ class CovidApi
     }
 
     /**
-     * Get total case covid 19 in world
+     * Get total case confirmed and recovered in Brazil
      *
      * @return array
      */
@@ -87,5 +89,37 @@ class CovidApi
         $response = $this->client->get(static::URL_BRAZIL_COVID19.'/brazil');
 
         return json_decode($response->getBody()->getContents(), true)['data'];
+    }
+
+    /**
+     * Get total case confirmed and recovered in Brazil
+     *
+     * @return array
+     */
+    public function getRegistryDeaths()
+    {
+        $data = [];
+
+        $page = 1;
+
+        do {
+            $response = $this->client->get(static::URL_BRASIL_IO_REGISTRY, [
+                'query' => [
+                    'format' => 'json',
+                    'page' => $page
+                ]
+            ]);
+
+            $contents = json_decode($response->getBody()->getContents(), true);
+
+            $data[] = $contents['results'];
+
+            //We sleep so that API does not overload request
+            sleep(32);
+
+            $page++;
+        } while ($page < 5);
+
+        return $data;
     }
 }

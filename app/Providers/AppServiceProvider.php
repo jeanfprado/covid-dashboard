@@ -40,5 +40,11 @@ class AppServiceProvider extends ServiceProvider
         $charts->register([
             \App\Charts\CovidConfirmedRecoveredPieChart::class
         ]);
+
+        $charts->register([
+            \App\Charts\RegistryDeathsLineChart::class
+        ]);
+
+
     }
 }

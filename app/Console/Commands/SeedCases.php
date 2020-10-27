@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Covid\CovidApi;
 use App\Models\CovidCase;
 use App\Imports\CovidImport;
 use App\Models\CovidCaseState;
 use Illuminate\Support\Carbon;
+use App\Imports\RegistryImport;
 use Illuminate\Console\Command;
-use App\Covid\CovidApi;
 use Illuminate\Support\Facades\Storage;
 
 class SeedCases extends Command
@@ -47,9 +48,15 @@ class SeedCases extends Command
         // Retrieve a specific option...
         $source = $this->option('source');
 
-        if ($source == 'file') {
-            $this->output->title('Iniciando Importação dos Dados');
+        if ($source == 'file-covid') {
+            $this->output->title('Iniciando Importação dos Dados - Covid');
             (new CovidImport)->withOutput($this->output)->import(Storage::path('caso.csv'));
+            $this->output->success('Importação Concluida!');
+        }
+
+        if ($source == 'file-registry') {
+            $this->output->title('Iniciando Importação dos Dados - Cartório');
+            (new RegistryImport)->withOutput($this->output)->import(Storage::path('obito_cartorio.csv'));
             $this->output->success('Importação Concluida!');
         }
 
@@ -59,8 +66,6 @@ class SeedCases extends Command
 
             $dataApi1 = collect($cases->getCaseContirmedAndDeath())->flatten(1);
             $bar1 = $this->output->createProgressBar(count($dataApi1));
-
-            logger($dataApi1);
 
             $this->line('Api brasil.io');
             collect($dataApi1)->each(function ($case) use ($bar1) {
@@ -101,6 +106,54 @@ class SeedCases extends Command
                 $bar2->advance();
             });
             $bar2->finish();
+
+            $dataApi3 = collect($cases->getRegistryDeaths())->flatten(1);
+            $bar2 = $this->output->createProgressBar(count($dataApi3));
+
+            $this->line('Api brasil.io - Registry');
+            collect($dataApi3)->each(function ($case) use ($bar3) {
+                CovidCase::updateOrCreate([
+                    'date' => $case['date'],
+                    'state' => $case['state'],
+                ], [
+                    'deaths_covid19' => $case['deaths_covid19'],
+                    'deaths_indeterminate_2019' => $case['deaths_indeterminate_2019'],
+                    'deaths_indeterminate_2020' => $case['deaths_indeterminate_2020'],
+                    'deaths_others_2019' => $case['deaths_others_2019'],
+                    'deaths_others_2020' => $case['deaths_others_2020'],
+                    'deaths_pneumonia_2019' => $case['deaths_pneumonia_2019'],
+                    'deaths_pneumonia_2020' => $case['deaths_pneumonia_2020'],
+                    'deaths_respiratory_failure_2019' => $case['deaths_respiratory_failure_2019'],
+                    'deaths_respiratory_failure_2020' => $case['deaths_respiratory_failure_2020'],
+                    'deaths_sars_2019' => $case['deaths_sars_2019'],
+                    'deaths_sars_2020' => $case['deaths_sars_2020'],
+                    'deaths_septicemia_2019' => $case['deaths_septicemia_2019'],
+                    'deaths_septicemia_2020' => $case['deaths_septicemia_2020'],
+                    'deaths_total_2019' => $case['deaths_total_2019'],
+                    'deaths_total_2020' => $case['deaths_total_2020'],
+                    'epidemiological_week_2019' => $case['epidemiological_week_2019'],
+                    'epidemiological_week_2020' => $case['epidemiological_week_2020'],
+                    'new_deaths_covid19' => $case['new_deaths_covid19'],
+                    'new_deaths_indeterminate_2019' => $case['new_deaths_indeterminate_2019'],
+                    'new_deaths_indeterminate_2020' => $case['new_deaths_indeterminate_2020'],
+                    'new_deaths_others_2019' => $case['new_deaths_others_2019'],
+                    'new_deaths_others_2020' => $case['new_deaths_others_2020'],
+                    'new_deaths_pneumonia_2019' => $case['new_deaths_pneumonia_2019'],
+                    'new_deaths_pneumonia_2020' => $case['new_deaths_pneumonia_2020'],
+                    'new_deaths_respiratory_failure_2019' => $case['new_deaths_respiratory_failure_2019'],
+                    'new_deaths_respiratory_failure_2020' => $case['new_deaths_respiratory_failure_2020'],
+                    'new_deaths_sars_2019' => $case['new_deaths_sars_2019'],
+                    'new_deaths_sars_2020' => $case['new_deaths_sars_2020'],
+                    'new_deaths_septicemia_2019' => $case['new_deaths_septicemia_2019'],
+                    'new_deaths_septicemia_2020' => $case['new_deaths_septicemia_2020'],
+                    'new_deaths_total_2019' => $case['new_deaths_total_2019'],
+                    'new_deaths_total_2020' => $case['new_deaths_total_2020'],
+                ]);
+
+                $bar3->advance();
+            });
+
+            $bar3->finish();
             $this->output->success('Importação Concluida!');
         }
     }

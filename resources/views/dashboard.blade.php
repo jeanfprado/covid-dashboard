@@ -56,7 +56,7 @@
         <div class="card">
             @if(empty($casesDeathsForCities))
             <div class="card-header">
-                Dados Global
+               <h5><b>Dados Globais</b></h5>
             </div>
             <div class="card-body">
                 <h5 class="card-title">Total de Obtos</h5>
@@ -69,27 +69,29 @@
                 <p class="card-text">{{$totalWorld['TotalConfirmed'] - $totalWorld['TotalRecovered'] }}</p>
             </div>
             @else
-            <div class="card-header">
-                Nº Obtos Por Cidade
-            </div>
-            <div class="card-body">
-                <div  class="table-responsible table-wrapper">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="col-xs-7">Cidade</th>
-                            <th scope="col" class="col-xs-5">Nº Obtos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($casesDeathsForCities as $city => $deaths)
-                        <tr>
-                            <th scope="row" class="col-xs-7">{{$city}}</th>
-                            <td class="col-xs-5">{{$deaths}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="card-header">
+                    Nº Obtos Por Cidade
+                </div>
+                <div class=" table-wrapper">
+                    <div  class="table-responsible">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col-xs-7">Cidade</th>
+                                <th scope="col" class="col-xs-5">Nº Obtos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($casesDeathsForCities as $city => $deaths)
+                            <tr>
+                                <th scope="row" class="col-xs-7">{{$city}}</th>
+                                <td class="col-xs-5">{{$deaths}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    </div>
                 </div>
             </div>
             @endif
